@@ -17,7 +17,7 @@ class _AuthenState extends State<Authen> {
 
   Widget signInButton() {
     return RaisedButton(
-      color: Colors.orange,
+      color: Colors.orange[200],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       child: Text('Sign In'),
       onPressed: () {},
