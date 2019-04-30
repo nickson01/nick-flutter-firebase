@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './screens/authen.dart';
+import './screens/register.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,6 +10,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    return MaterialApp(title: 'Nick Flutter Application', home: Authen());
+    return MaterialApp(title: 'Nick Flutter Application', home: Register());
   }
 }
