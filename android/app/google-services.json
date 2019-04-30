@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "223489222344",
+    "firebase_url": "https://nickflutterfirebase.firebaseio.com",
+    "project_id": "nickflutterfirebase",
+    "storage_bucket": "nickflutterfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223489222344:android:f50650bd9e87430d",
+        "android_client_info": {
+          "package_name": "com.controldata.nickfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223489222344-07fdb3n0ogrbuaprc4c73pug9ej3vd37.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.controldata.nickfirebase",
+            "certificate_hash": "309be266ce4b9372d5148c3d55d1e2623c52a00a"
+          }
+        },
+        {
+          "client_id": "223489222344-hijkbsjropbtgo7u2nqukgeghqc90gqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbYQCWthL9mucH0HIMATbl_2df8pHPV2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223489222344-hijkbsjropbtgo7u2nqukgeghqc90gqp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
