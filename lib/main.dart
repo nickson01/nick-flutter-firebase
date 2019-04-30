@@ -10,6 +10,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    return MaterialApp(title: 'Nick Flutter Application', home: Register());
+    return MaterialApp(
+      title: 'Nick Flutter Application',
+      home: Authen(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
