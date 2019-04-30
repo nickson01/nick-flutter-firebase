@@ -6,6 +6,13 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  Widget uploadButton() {
+    return IconButton(
+      icon: Icon(Icons.cloud_upload,color: Colors.white,),
+      tooltip: 'Upload to Firebase',
+    );
+  }
+
   Widget passwordTextFormField() {
     return TextFormField(
       decoration: InputDecoration(
@@ -60,6 +67,8 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Register'),
+        actions: <Widget>[uploadButton()],
+        backgroundColor: Colors.red,
       ),
       body: Container(
         decoration: BoxDecoration(
