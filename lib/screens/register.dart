@@ -62,7 +62,12 @@ class _RegisterState extends State<Register> {
         title: Text('Register'),
       ),
       body: Container(
-        margin: EdgeInsets.all(50.0),
+        decoration: BoxDecoration(
+            gradient: RadialGradient(
+                colors: [Colors.white, Colors.blue],
+                radius: 2.5,
+                center: Alignment(-1, -1))),
+        padding: EdgeInsets.all(50.0),
         child: Column(
           children: <Widget>[
             Container(
