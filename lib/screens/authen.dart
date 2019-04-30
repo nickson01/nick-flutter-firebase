@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nickfirebase/screens/register.dart';
+import './register.dart';
 
 class Authen extends StatefulWidget {
   @override
@@ -6,21 +8,30 @@ class Authen extends StatefulWidget {
 }
 
 class _AuthenState extends State<Authen> {
-  Widget signUpButton() {
-    return RaisedButton(
+  Widget signUpButton(BuildContext context) {
+    return RaisedButton.icon(
       color: Colors.orange[600],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-      child: Text('Sign Up'),
-      onPressed: () {},
+      icon: Icon(Icons.vpn_lock),
+      label: Text('Sign Up'),
+      onPressed: () {
+        print('Clicking Sign Up');
+        var registerRoute =
+            MaterialPageRoute(builder: (BuildContext context) => Register());
+            Navigator.of(context).push(registerRoute);
+      },
     );
   }
 
   Widget signInButton() {
-    return RaisedButton(
+    return RaisedButton.icon(
       color: Colors.orange[200],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-      child: Text('Sign In'),
-      onPressed: () {},
+      icon: Icon(Icons.person),
+      label: Text('Sign In'),
+      onPressed: () {
+        print('Clicking Sign In');
+      },
     );
   }
 
@@ -43,7 +54,7 @@ class _AuthenState extends State<Authen> {
 
   Widget showAppName() {
     return Text(
-      "My นิคนะ Name",
+      "แอพพลิเคชั่นของนิค",
       style: TextStyle(
           fontSize: 25.0,
           fontWeight: FontWeight.bold,
@@ -95,10 +106,11 @@ class _AuthenState extends State<Authen> {
                       child: signInButton(),
                     ),
                   ),
+                  Text('Or'),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(right: 4.0),
-                      child: signUpButton(),
+                      margin: EdgeInsets.only(left: 4.0),
+                      child: signUpButton(context),
                     ),
                   )
                 ],
