@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,6 +14,7 @@ class _RegisterState extends State<Register> {
 
   // For firebase
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
 
   // For SnackBar
   final snackBarKey = GlobalKey<ScaffoldState>();
@@ -42,13 +44,26 @@ class _RegisterState extends State<Register> {
         .then((user) {
       print('Register Success');
       showSnackBar('Register Success');
-      Navigator.pop(context);
+      addValueToFirebaseDatabase(context);
+      // Navigator.pop(context);
     }).catchError((error) {
       print('------------------------ Error ----------------------------');
       showSnackBar(error.message);
       print(error.message);
       print('------------------------ Error ----------------------------');
     });
+  }
+
+  void addValueToFirebaseDatabase(BuildContext context) async {
+    FirebaseUser firebaseUser = await _auth.currentUser();
+    print('UID = ${firebaseUser.uid.toString()}');
+
+    // Create map type
+    Map<String,String> map = Map();
+    map['Name'] = nameString;
+    
+    await firebaseDatabase.reference().child(firebaseUser.uid).set(map);
+    Navigator.pop(context);
   }
 
   void showSnackBar(String message) {
