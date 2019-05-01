@@ -8,6 +8,14 @@ class Authen extends StatefulWidget {
 }
 
 class _AuthenState extends State<Authen> {
+  // For Form
+  final formKey = GlobalKey<FormState>();
+
+  // Constant
+  String titleHaveSpace = 'กรุณากรอกข้อมูล';
+  String titleEmailFalse = 'กรุณากรอก Email ให้ถูกต้อง';
+  String titlePasswordFalse ='กรุณากรอก Password มากกว่า 6 ตัวอักษร';
+
   Widget signUpButton(BuildContext context) {
     return RaisedButton.icon(
       color: Colors.orange[600],
@@ -18,7 +26,7 @@ class _AuthenState extends State<Authen> {
         print('Clicking Sign Up');
         var registerRoute =
             MaterialPageRoute(builder: (BuildContext context) => Register());
-            Navigator.of(context).push(registerRoute);
+        Navigator.of(context).push(registerRoute);
       },
     );
   }
@@ -31,6 +39,9 @@ class _AuthenState extends State<Authen> {
       label: Text('Sign In'),
       onPressed: () {
         print('Clicking Sign In');
+        if(formKey.currentState.validate()){
+
+        }
       },
     );
   }
@@ -40,7 +51,13 @@ class _AuthenState extends State<Authen> {
       decoration: InputDecoration(
         labelText: 'Password',
         hintText: '8 bit',
-      ),
+      ),validator: (String value){
+        if(value.length == 0){
+          return titleHaveSpace;
+        } else if (value.length < 6){
+          return titlePasswordFalse;
+        }
+      },
       obscureText: true,
     );
   }
@@ -48,7 +65,13 @@ class _AuthenState extends State<Authen> {
   Widget emailTextFromField() {
     return TextFormField(
       decoration:
-          InputDecoration(labelText: 'Email :', hintText: 'Your@email.com'),
+          InputDecoration(labelText: 'Email :', hintText: 'Your@email.com'),validator: (String value){
+            if(value.length == 0){
+              return titleHaveSpace;
+            }else if (!((value.contains('@')) && (value.contains('.')))){
+              return titleEmailFalse;
+            }
+          },
     );
   }
 
@@ -70,55 +93,58 @@ class _AuthenState extends State<Authen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.white, Colors.green], begin: Alignment(0, -1))),
-        padding: EdgeInsets.only(top: 100.0),
-        alignment: Alignment(0, -1),
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: 100.0,
-              height: 100.0,
-              child: showLogo(),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15.0),
-              child: showAppName(),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
-              child: emailTextFromField(),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 50.0, right: 50.0),
-              child: passwordTextFormField(),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 4.0),
-                      child: signInButton(),
-                    ),
+        resizeToAvoidBottomPadding: false,
+        body: Form(
+          key: formKey,
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.white, Colors.green],
+                    begin: Alignment(0, -1))),
+            padding: EdgeInsets.only(top: 100.0),
+            alignment: Alignment(0, -1),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width: 100.0,
+                  height: 100.0,
+                  child: showLogo(),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 15.0),
+                  child: showAppName(),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
+                  child: emailTextFromField(),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 50.0, right: 50.0),
+                  child: passwordTextFormField(),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 50.0, right: 50.0, top: 20.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(right: 4.0),
+                          child: signInButton(),
+                        ),
+                      ),
+                      Text('Or'),
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 4.0),
+                          child: signUpButton(context),
+                        ),
+                      )
+                    ],
                   ),
-                  Text('Or'),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 4.0),
-                      child: signUpButton(context),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }

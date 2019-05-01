@@ -17,7 +17,7 @@ class _RegisterState extends State<Register> {
   // For SnackBar
   final snackBarKey = GlobalKey<ScaffoldState>();
 
-  Widget uploadButton() {
+  Widget uploadButton(BuildContext context) {
     return IconButton(
       icon: Icon(
         Icons.cloud_upload,
@@ -29,19 +29,20 @@ class _RegisterState extends State<Register> {
           formKey.currentState.save();
           print(
               'Name = $nameString, Email = $emailString, Password = $passwordString');
-          uploadValueToFirebase();
+          uploadValueToFirebase(context);
         }
       },
     );
   }
 
-  void uploadValueToFirebase() async {
+  void uploadValueToFirebase(BuildContext context) async {
     final FirebaseUser firebaseUser = await _auth
         .createUserWithEmailAndPassword(
             email: emailString, password: passwordString)
         .then((user) {
       print('Register Success');
       showSnackBar('Register Success');
+      Navigator.pop(context);
     }).catchError((error) {
       print('------------------------ Error ----------------------------');
       showSnackBar(error.message);
@@ -147,7 +148,7 @@ class _RegisterState extends State<Register> {
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: Text('Register'),
-          actions: <Widget>[uploadButton()],
+          actions: <Widget>[uploadButton(context)],
           backgroundColor: Colors.red,
         ),
         body: Form(
