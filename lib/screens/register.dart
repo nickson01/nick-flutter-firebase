@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -8,7 +9,8 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   // Explicit
   final formKey = GlobalKey<FormState>();
-  String nameString,emailString,passwordString;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String nameString, emailString, passwordString;
 
   Widget uploadButton() {
     return IconButton(
@@ -17,10 +19,12 @@ class _RegisterState extends State<Register> {
         color: Colors.white,
       ),
       tooltip: 'Upload to Firebase',
-      onPressed: () {
+      onPressed: () async {
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
-          print('Name = $nameString, Email = $emailString, Password = $passwordString');
+          print(
+              'Name = $nameString, Email = $emailString, Password = $passwordString');
+          
         }
       },
     );
@@ -45,7 +49,8 @@ class _RegisterState extends State<Register> {
         if (value.length < 6) {
           return 'Password must more than 6 charactor';
         }
-      },onSaved: (String value){
+      },
+      onSaved: (String value) {
         passwordString = value;
       },
       obscureText: true,
@@ -70,7 +75,8 @@ class _RegisterState extends State<Register> {
         } else if (!((value.contains('@')) && (value.contains('.')))) {
           return 'Please Fill Email Format';
         }
-      },onSaved: (String value){
+      },
+      onSaved: (String value) {
         emailString = value;
       },
     );
@@ -92,7 +98,8 @@ class _RegisterState extends State<Register> {
         if (value.length == 0) {
           return 'Please Fill Name in the blank';
         }
-      },onSaved: (String value){
+      },
+      onSaved: (String value) {
         nameString = value;
       },
     );
