@@ -14,7 +14,10 @@ class _AuthenState extends State<Authen> {
   // Constant
   String titleHaveSpace = 'กรุณากรอกข้อมูล';
   String titleEmailFalse = 'กรุณากรอก Email ให้ถูกต้อง';
-  String titlePasswordFalse ='กรุณากรอก Password มากกว่า 6 ตัวอักษร';
+  String titlePasswordFalse = 'กรุณากรอก Password มากกว่า 6 ตัวอักษร';
+
+  // Explicit
+  String emailString, passwordString;
 
   Widget signUpButton(BuildContext context) {
     return RaisedButton.icon(
@@ -39,8 +42,9 @@ class _AuthenState extends State<Authen> {
       label: Text('Sign In'),
       onPressed: () {
         print('Clicking Sign In');
-        if(formKey.currentState.validate()){
-
+        if (formKey.currentState.validate()) {
+          formKey.currentState.save();
+          print('email = $emailString :::: Password $passwordString');
         }
       },
     );
@@ -51,12 +55,16 @@ class _AuthenState extends State<Authen> {
       decoration: InputDecoration(
         labelText: 'Password',
         hintText: '8 bit',
-      ),validator: (String value){
-        if(value.length == 0){
+      ),
+      validator: (String value) {
+        if (value.length == 0) {
           return titleHaveSpace;
-        } else if (value.length < 6){
+        } else if (value.length < 6) {
           return titlePasswordFalse;
         }
+      },
+      onSaved: (String input) {
+        passwordString = input;
       },
       obscureText: true,
     );
@@ -65,13 +73,16 @@ class _AuthenState extends State<Authen> {
   Widget emailTextFromField() {
     return TextFormField(
       decoration:
-          InputDecoration(labelText: 'Email :', hintText: 'Your@email.com'),validator: (String value){
-            if(value.length == 0){
-              return titleHaveSpace;
-            }else if (!((value.contains('@')) && (value.contains('.')))){
-              return titleEmailFalse;
-            }
-          },
+          InputDecoration(labelText: 'Email :', hintText: 'Your@email.com'),
+      validator: (String value) {
+        if (value.length == 0) {
+          return titleHaveSpace;
+        } else if (!((value.contains('@')) && (value.contains('.')))) {
+          return titleEmailFalse;
+        }
+      },onSaved: (String input) {
+        emailString = input;
+      },
     );
   }
 
