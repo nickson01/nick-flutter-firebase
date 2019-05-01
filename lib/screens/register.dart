@@ -9,8 +9,13 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   // Explicit
   final formKey = GlobalKey<FormState>();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   String nameString, emailString, passwordString;
+
+  // For firebase
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // For SnackBar
+  final snackBarKey = GlobalKey<ScaffoldState>();
 
   Widget uploadButton() {
     return IconButton(
@@ -24,10 +29,40 @@ class _RegisterState extends State<Register> {
           formKey.currentState.save();
           print(
               'Name = $nameString, Email = $emailString, Password = $passwordString');
-          
+          uploadValueToFirebase();
         }
       },
     );
+  }
+
+  void uploadValueToFirebase() async {
+    final FirebaseUser firebaseUser = await _auth
+        .createUserWithEmailAndPassword(
+            email: emailString, password: passwordString)
+        .then((user) {
+      print('Register Success');
+      showSnackBar('Register Success');
+    }).catchError((error) {
+      print('------------------------ Error ----------------------------');
+      showSnackBar(error.message);
+      print(error.message);
+      print('------------------------ Error ----------------------------');
+    });
+  }
+
+  void showSnackBar(String message) {
+    SnackBar snackBar = SnackBar(
+      backgroundColor: Colors.red,
+      duration: const Duration(seconds: 10),
+      content: Text(message),
+      action: SnackBarAction(
+        textColor: Colors.blue,
+        label: 'ปุ่มอะไรซักอย่าง',
+        onPressed: () {},
+      ),
+    );
+
+    snackBarKey.currentState.showSnackBar(snackBar);
   }
 
   Widget passwordTextFormField() {
@@ -108,6 +143,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: snackBarKey,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: Text('Register'),
